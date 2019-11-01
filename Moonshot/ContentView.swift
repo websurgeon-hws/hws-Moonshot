@@ -6,7 +6,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello World")
+        GeometryReader { geo in
+            Image("earth-rising")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: geo.size.width)
+        }
     }
 }
 
