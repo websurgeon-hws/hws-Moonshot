@@ -6,24 +6,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        List {
-            ForEach(0..<100) {
-                CustomText("Item \($0)")
-                    .font(.title)
+        NavigationView {
+            VStack {
+                NavigationLink(destination: Text("Detail View")) {
+                    Text("Hello World")
+                }
             }
+            .navigationBarTitle("SwiftUI")
         }
-    }
-}
-
-struct CustomText: View {
-    var text: String
-    var body: some View {
-        Text(text)
-    }
-    
-    init(_ text: String) {
-        print("Creating a new CustomText \(text)")
-        self.text = text
     }
 }
 
