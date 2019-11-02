@@ -1,0 +1,10 @@
+
+atronauts.json
+Data source: Wikipedia
+License: https://creativecommons.org/licenses/by-sa/3.0/
+
+missions.json
+Data source: Wikipedia
+License: https://creativecommons.org/licenses/by-sa/3.0/
+
+
