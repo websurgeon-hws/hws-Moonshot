@@ -39,6 +39,13 @@ struct MissionView: View {
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.7)
                         .padding(.top)
+                    
+                    HStack {
+                        if self.mission.launchDate != nil {
+                            Text("Launch Date:")
+                            Text("\(self.mission.formattedLaunchDate)")
+                        }
+                    }
 
                     Text(self.mission.description)
                         .padding()
@@ -51,7 +58,6 @@ struct MissionView: View {
                                     .frame(width: 83, height: 60)
                                     .clipShape(Capsule())
                                     .overlay(Capsule()  .stroke(Color.primary, lineWidth: 1))
-
                                 VStack(alignment: .leading) {
                                     Text(crewMember.astronaut.name)
                                         .font(.headline)
