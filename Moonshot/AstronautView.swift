@@ -5,10 +5,16 @@
 import SwiftUI
 
 struct AstronautView: View {
+    let missions: [Mission] = Bundle.main.decode("missions.json")
+    
     let astronaut: Astronaut
     
     var body: some View {
-        GeometryReader { geometry in
+        let astronautMissions: [Mission] = missions.filter { mission in
+            mission.crew.contains(where: { $0.name == self.astronaut.id })
+        }
+        
+        return GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
                     Image(self.astronaut.id)
@@ -19,7 +25,15 @@ struct AstronautView: View {
                     Text(self.astronaut.description)
                         .padding()
                         .layoutPriority(1) // to fix SwiftUI bug causing text to be truncated for some astronauts on some devices
+               
+                    VStack(alignment: .leading) {
+                        Text("Missions:")
+                        List(astronautMissions, id: \.id) {
+                            Text("\($0.displayName)")
+                        }
+                    }
                 }
+                
             }
         }
     }
