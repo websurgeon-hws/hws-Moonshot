@@ -8,6 +8,8 @@ struct ContentView: View {
     let astronauts: [Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
 
+    @State var showLaunchDate: Bool = true
+    
     var body: some View {
         NavigationView {
             List(missions) { mission in
@@ -22,12 +24,28 @@ struct ContentView: View {
                     VStack(alignment: .leading) {
                         Text(mission.displayName)
                             .font(.headline)
-                        Text(mission.formattedLaunchDate)
+                        
+                        if self.showLaunchDate {
+                            Text(mission.formattedLaunchDate)
+                        } else {
+                            Text("\(self.crewForMission(mission))")
+                        }
                     }
                 }
             }
             .navigationBarTitle("Moonshot")
+            .navigationBarItems(trailing:
+                Button(action: {
+                    self.showLaunchDate.toggle()
+                }) {
+                    Text(showLaunchDate ? "Show Crew" : "Shown Launch Date")
+                }
+            )
         }
+    }
+    
+    func crewForMission(_ mission: Mission) -> String {
+        return mission.crew.map { $0.name }.joined(separator: ", ")
     }
 }
 
