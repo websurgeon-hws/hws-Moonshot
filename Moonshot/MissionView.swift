@@ -39,6 +39,7 @@ struct MissionView: View {
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.7)
                         .padding(.top)
+                        .accessibility(hidden: true)
                     
                     HStack {
                         if self.mission.launchDate != nil {
@@ -46,6 +47,8 @@ struct MissionView: View {
                             Text("\(self.mission.formattedLaunchDate)")
                         }
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibility(label: Text("Launch Date,  \(self.mission.formattedLaunchDate)"))
 
                     Text(self.mission.description)
                         .padding()

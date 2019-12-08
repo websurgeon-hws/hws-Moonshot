@@ -21,7 +21,8 @@ struct AstronautView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width:geometry.size.width)
-                    
+                        .accessibility(hidden: true)
+
                     Text(self.astronaut.description)
                         .padding()
                         .layoutPriority(1) // to fix SwiftUI bug causing text to be truncated for some astronauts on some devices
