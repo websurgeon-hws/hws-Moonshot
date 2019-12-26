@@ -34,13 +34,21 @@ struct MissionView: View {
         return GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
-                    Image(self.mission.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geometry.size.width * 0.7)
-                        .padding(.top)
-                        .accessibility(hidden: true)
-                    
+                    GeometryReader { imageGeo in
+                        Image(self.mission.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: imageGeo.size.width, height: imageGeo.size.height)
+                            .padding(.top)
+                            .scaleEffect(
+                                self.missionImageScaleEffect(
+                                    imageGeo.frame(in: .global),
+                                    geometry.frame(in: .global))
+                            )
+                            .accessibility(hidden: true)
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height * 0.33)
+
                     HStack {
                         if self.mission.launchDate != nil {
                             Text("Launch Date:")
@@ -83,6 +91,13 @@ struct MissionView: View {
         .navigationBarTitle(Text(mission.displayName),
                             displayMode: .inline)
     }
+    
+    func missionImageScaleEffect(_ geoRect: CGRect,
+                                 _ fullRect: CGRect) -> CGFloat {
+        let scale = geoRect.midY / fullRect.midY * 2
+
+        return min(max(scale, 0.8), 1)
+    }
 }
 
 struct MissionView_Previews: PreviewProvider {
@@ -94,3 +109,4 @@ struct MissionView_Previews: PreviewProvider {
                     astronauts: astronauts)
     }
 }
+
